@@ -1,2 +1,2 @@
-# Quant_Trading_All_At_Once
+# Quant_Strategies
 Quant analyst/Research/Trading System
