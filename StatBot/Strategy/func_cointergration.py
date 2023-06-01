@@ -4,9 +4,15 @@ from statsmodels.tsa.stattools import coint
 import statsmodels.api as sm
 import numpy as np
 import pandas as pd
+
+#Zero Crossing
+def calc_zero_cross(spread):
+    zero_crossings = len(np.where(np.diff(np.sign(spread)))[0])
+    return zero_crossings
+
 #Calculate Spread
 def calculate_spread(series_1, series_2, hedge_ratio):
-    spread = pd.DataFrame(series_1) - pd.DataFrame(series_2) * hedge_ratio
+    spread = pd.Series(series_1) - pd.Series(series_2) * hedge_ratio
     return spread
 
 #Calculate cointegrated pairs
@@ -22,7 +28,7 @@ def calculate_cointegration(series_1, series_2):
     hedge_ratio = model.params[0]
     spread = calculate_spread(series_1, series_2, hedge_ratio)  
 
-    zero_crossings = len(np.where(np.diff(np.sign(spread)))[0])
+    zero_crossings = calc_zero_cross(spread)
     
     #Cointegration check
     if p_value < 0.5 and coint_t < critical_value:
