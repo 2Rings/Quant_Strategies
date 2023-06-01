@@ -33,3 +33,5 @@ if __name__ == "__main__":
 
         if len(price_data) > 0:
             coint_pairs = get_cointegrated_pairs(price_data)
+    
+    print("done.")
