@@ -28,7 +28,7 @@ if __name__ == "__main__":
     # STEP 3 - Find Cointegrated pairs
     print("Calculating co-intergration...")
 
-    with open("F:\Learn\quant\QStrategy\Quant_Strategies\StatBot\Strategy\\1_price_list.json", "r") as json_file:
+    with open("F:\Learn\quant\data\\1_price_list.json", "r") as json_file:
         price_data = json.load(json_file)
 
         if len(price_data) > 0:
