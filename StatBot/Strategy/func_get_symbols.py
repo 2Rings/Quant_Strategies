@@ -11,5 +11,6 @@ def get_tradeable_symbols():
     for symbol in symbols:
         if symbol["quote_currency"] == "USDT" and float(symbol["maker_fee"]) < 0 and symbol["status"] == "Trading":
             sym_list.append(symbol)
-            
-    pass
+
+    # Return output
+    return sym_list
