@@ -4,8 +4,8 @@
 """
 
 #API Imports
-from pybit import HTTP
-from pybit import WebSocket
+# from pybit import HTTP
+# from pybit import webSocket
 
 # CONFIG
 
@@ -32,9 +32,9 @@ api_url = "https://api-testnet.bybit.com" if mode == "test" else "hettps://api.b
 
 #SESSION Activation
 
-session = HTTP(api_url)
+# session = HTTP(api_url)
 
-
+session = {}
 # Wb Socket Connection
 
 # ws = WebSocket(
