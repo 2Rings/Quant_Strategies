@@ -7,6 +7,7 @@ warnings.simplefilter(action='ignore', category=FutureWarning)
 from func_get_symbols import get_tradeable_symbols
 from func_prices_json import store_price_history
 from func_cointergration import get_cointegrated_pairs
+from func_plot_trends import plot_trends
 import pandas as pd
 import json
 
@@ -26,12 +27,21 @@ if __name__ == "__main__":
     #     store_price_history(sym_response)
 
     # STEP 3 - Find Cointegrated pairs
-    print("Calculating co-intergration...")
 
-    with open("F:\Learn\quant\data\\1_price_list.json", "r") as json_file:
-        price_data = json.load(json_file)
+    # print("Calculating co-intergration...")
 
-        if len(price_data) > 0:
-            coint_pairs = get_cointegrated_pairs(price_data)
+    # with open("F:\Learn\quant\data\\1_price_list.json", "r") as json_file:
+    #     price_data = json.load(json_file)
+
+    #     if len(price_data) > 0:
+    #         coint_pairs = get_cointegrated_pairs(price_data)
     
-    print("done.")
+    # print("done.")
+
+    # STEP 4 - Plot trends and save for backtesting
+    sym_1 = 
+    sym_2 = 
+    with open("1_price_list.json", 'r') as json_file:
+        price_data = json.load(json_file)
+        if len(price_data) > 0:
+            plot_trends(sym_1, sym_2)
