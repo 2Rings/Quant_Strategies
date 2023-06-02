@@ -1,6 +1,7 @@
 import math
 
 from statsmodels.tsa.stattools import coint
+from config_strategy_api import z_score_window
 import statsmodels.api as sm
 import numpy as np
 import pandas as pd
@@ -9,6 +10,16 @@ import pandas as pd
 def calc_zero_cross(spread):
     zero_crossings = len(np.where(np.diff(np.sign(spread)))[0])
     return zero_crossings
+
+# Calculate Z-Score:
+def calculate_zscore(spread):
+    df = pd.DataFrame(spread)
+    mean = df.rolling(center=False, window= z_score_window).mean()
+    std  = df.rolling(center=False, window= z_score_window).std()
+    x    = df.rolling(center=False, window=1).mean()
+    df['ZSCORE'] = (x-mean)/std
+
+    return df["ZSCORE"].astype(float)
 
 #Calculate Spread
 def calculate_spread(series_1, series_2, hedge_ratio):
@@ -89,7 +100,7 @@ def get_cointegrated_pairs(prices):
 
     df_coint = pd.DataFrame(coint_pair_list)
 
-    df_coint = df_coint.sort_values("zero_crossings", asscending=False)
+    df_coint = df_coint.sort_values("zero_crossings", ascending=False)
 
     df_coint.to_csv("F:\Learn\quant\data\\2_cointergrated_pairs.csv")
     return df_coint
