@@ -14,7 +14,7 @@ import json
 
 
 if __name__ == "__main__":
-
+    data_path = "F:\Learn\quant\data"
     
     # # STEP 1 - Get list of symbol
     # print("Getting symbols...")
@@ -39,9 +39,9 @@ if __name__ == "__main__":
     # print("done.")
 
     # STEP 4 - Plot trends and save for backtesting
-    sym_1 = 
-    sym_2 = 
-    with open("1_price_list.json", 'r') as json_file:
+    sym_1 = "MATICUSDT"
+    sym_2 = "STXUSDT"
+    with open(data_path + "\\1_price_list.json", 'r') as json_file:
         price_data = json.load(json_file)
         if len(price_data) > 0:
-            plot_trends(sym_1, sym_2)
+            plot_trends(sym_1, sym_2, price_data)
