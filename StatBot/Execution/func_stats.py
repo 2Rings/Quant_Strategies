@@ -4,6 +4,8 @@ import statsmodels.api as sm
 import numpy as np
 import pandas as pd
 
+
+
 #Zero Crossing
 def calc_zero_cross(spread):
     zero_crossings = len(np.where(np.diff(np.sign(spread)))[0])
@@ -25,7 +27,7 @@ def calculate_spread(series_1, series_2, hedge_ratio):
     return spread
 
 #Calculate cointegrated pairs
-def calculate_cointegration(series_1, series_2):
+def calculate_metrics(series_1, series_2):
     coint_flag = False
 
     coint_res = coint(series_1, series_2)
@@ -43,3 +45,5 @@ def calculate_cointegration(series_1, series_2):
         coint_flag = True
 
     return (coint_flag, zscore_list.tolist())
+
+
