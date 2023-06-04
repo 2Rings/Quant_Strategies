@@ -64,11 +64,12 @@ def get_trade_details(orderbook, direction="Long", capital=0):
             if direction == "Long":
                 # Placing at bid has high probability of not being cancelled, but may not fill
                 order_price = nearesr_bid
+                stop_loss = round(order_price*(1-stop_loss_fail_safe), price_rounding)
+
             else:
                 # Placing at ask has high probability of not being cancelled, but may not fill
                 order_price = nearest_ask
-
-            stop_loss = round(order_price*(1-stop_loss_fail_safe))
+                stop_loss = round(order_price*(1+stop_loss_fail_safe), price_rounding)
 
 
             # Caculate Quantity
