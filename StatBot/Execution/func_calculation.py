@@ -2,6 +2,8 @@ from config_execution_api import stop_loss_fail_safe, ticker_1, rounding_ticker_
 from config_execution_api import rounding_ticker_2, quantity_rounding_ticker_1, quantity_rounding_ticker_2
 import math
 
+
+
 # PUts all close prices in a list
 def extract_close_prices(prices):
     close_prices = []
@@ -75,7 +77,12 @@ def get_trade_details(orderbook, direction="Long", capital=0):
     # Output results
     return (order_price, stop_loss, quantity)
 
-
+# from config_ws_connect import subs_public, ws_public
+# while True:
+#     orderbook = ws_public.fetch(subs_public[0])
+#     if orderbook:
+#         order_price, stop_loss, quantity = get_trade_details(orderbook, direction="Long", capital=1000)
+#         print(order_price, stop_loss, quantity)
 
 
 
