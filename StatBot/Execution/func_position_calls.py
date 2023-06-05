@@ -53,11 +53,10 @@ def get_active_order(ticker):
         )
 
     # Select index to avoid looping through response
-    index = 0 if direction == "Long" else 1
 
     # Construct a response
-    if "ret_msg" in position.keys():
-        if position["ret_msg"] == "OK":
+    if "ret_msg" in active_order.keys():
+        if active_order["ret_msg"] == "OK":
             if active_order["result"]["data"] != None:
                 order_price = active_order["result"]["data"][0]["price"]
                 order_quantity = active_order["result"]["data"][0]["quantity"]
