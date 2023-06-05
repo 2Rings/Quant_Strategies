@@ -65,4 +65,17 @@ def get_active_order(ticker):
             
     return (0, 0)
 
+# query existing order
+def query_existing_order(ticker, order_id, direction):
+    # query order
+    order = session_private.query_active_order(symbol=ticker, order_id = order_id)
 
+    # Construct response
+    if "ret_msg" in order.keys():
+        if order["ret_msg"] == "OK":
+            order_price = order["result"]
+            order_quantity = order["result"]["qty"]
+            order_status = order["result"]["order_status"]
+            return order_price, order_quantity, order_status
+        
+    return (0, 0, 0)
