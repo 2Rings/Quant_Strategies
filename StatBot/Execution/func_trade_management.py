@@ -192,14 +192,8 @@ def manage_new_order(kill_switch):
                     )
                     kill_switch = 1
 
-    if kill_switch == 1:
-        # Mean reversion is happened
-        if signal_side == "positive" and zscore < 0:
-            kill_switch = 2
 
-        if signal_side == "negative" and zscore > 0:
-            kill_switch = 2
 
     # Output status
 
-    return kill_switch
+    return kill_switch, signal_side
