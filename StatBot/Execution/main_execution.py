@@ -6,6 +6,7 @@ from func_position_calls import open_position_confirmation, active_position_conf
 from func_save_status import save_status
 from func_get_zscore import get_latest_zscore
 from func_trade_management import manage_new_trades
+from config_ws_connect import ws_public
 import time
 
 # Remove panda Future warnings
@@ -42,6 +43,9 @@ if __name__ == "__main__":
     print("Seeking trades ...")
 
     while True:
+        # Keep active
+        pinged = ws_public.fetch(subs_public[0])
+        
         # Pause - protect API
         time.sleep(3)
 
