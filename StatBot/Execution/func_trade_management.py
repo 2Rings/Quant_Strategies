@@ -9,4 +9,33 @@ import time
 
 # Manage new trade assessment and order placing
 def manage_new_order(kill_switch):
-    return 0
+
+    # Set output variables
+    order_long_id = ""
+    order_short_id = ""
+    signal_side = ""
+    hot = False
+
+
+    # Get and save latest z-score
+    zscore, signal_sign_positive = get_latest_zscore()
+
+
+    # Switch to hot if meets signal threshold
+    # Note: You can add in coint-flag check too if you wnat extra vigilence
+    if abs(zscore) > signal_trigger_thresh:
+        # Active hot trigger
+        hot = True
+        print("-- Trade Status HOT --")
+        print("-- Placing and Monitoring Existing Trades --")
+
+    
+    # Place and manage trades
+    if hot and kill_switch == 0:
+        # Get trades history for liquidity
+        avg_liquidity_ticker_p, last_price_p = get_ticker_trade_liquidity(signal_positive_ticker)
+        avg_liquidity_ticker_n, last_price_n = get_ticker_trade_liquidity(signal_negative_ticker)
+
+        print(avg_liquidity_ticker_p, avg_liquidity_ticker_n)
+
+    print(zscore, signal_sign_positive)
