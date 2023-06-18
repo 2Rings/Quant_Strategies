@@ -107,6 +107,99 @@ def manage_new_order(kill_switch):
                 counts_short = 1 if order_short_id else 0
                 remaining_capital_short = remaining_capital_short - initial_capital_usdt
 
-        print(avg_liquidity_ticker_p, avg_liquidity_ticker_n)
+            # Update signal side
+            if zscore > 0:
+                signal_side = "positive"
+            else:
+                signal_side = "negative"
 
-    print(zscore, signal_sign_positive)
+            # Handle kill siwtch for market orders
+            if not limit_order_basis and counts_long and counts_short:
+                kill_switch = 1
+
+            # Allow for time to register the limit orders
+            time.sleep(3)
+
+            # Check limit orders and ensure z_score is still within range
+            zscore_new, signal_sign_p_new = get_latest_zscore()
+
+            if kill_switch == 0:
+                if (
+                    abs(zscore_new) > signal_trigger_thresh * 0.9
+                    and signal_sign_p_new == signal_sign_positive
+                ):
+                    # Check long order status
+                    if counts_long == 1:
+                        order_status_long = check_order(
+                            long_ticker, order_long_id, remaining_capital_long, "Long"
+                        )
+                    # Chedc short order status
+
+                    if counts_short == 1:
+                        order_status_short = check_order(
+                            short_ticker,
+                            order_short_id,
+                            remaining_capital_short,
+                            "Short",
+                        )
+
+                    # If orders still active, do nothing
+
+                    if (
+                        order_status_long == "Order Active"
+                        or order_status_short == "Order Active"
+                    ):
+                        continue
+
+                    # If orders still partial fill, do nothing
+
+                    if (
+                        order_status_long == "Partial Fill"
+                        or order_status_short == "Partial Fill"
+                    ):
+                        continue
+
+                    # If orders trade complete, do nohting - stop trading
+                    if (
+                        order_status_long == "Trade Complete"
+                        and order_status_short == "Trade Complete"
+                    ):
+                        kill_switch = 1
+                    # If position filled - place another trade
+                    if (
+                        order_status_long == "Position Filled"
+                        and order_status_short == "Position Filled"
+                    ):
+                        counts_long = 0
+                        counts_short = 0
+
+                    # If order is cancelled for long - try again
+                    if order_status_long == "Try Again":
+                        counts_long = 0
+
+                    # If order is cancelled for short - try again
+
+                    if order_status_short == "Try Again":
+                        counts_short = 0
+                else:
+                    # Signal no longer in our favor, so stop trading
+                    # Cancel all active orders
+                    session_private.cancel_all_active_orders(
+                        symbol=signal_positive_ticker
+                    )
+                    session_private.cancel_all_active_orders(
+                        symbol=signal_negative_ticker
+                    )
+                    kill_switch = 1
+
+    if kill_switch == 1:
+        # Mean reversion is happened
+        if signal_side == "positive" and zscore < 0:
+            kill_switch = 2
+
+        if signal_side == "negative" and zscore > 0:
+            kill_switch = 2
+
+    # Output status
+
+    return kill_switch

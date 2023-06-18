@@ -65,7 +65,7 @@ if __name__ == "__main__":
         save_status(status_dict)
 
         # Check for signal and place new trades
-        if is_manage_new_trades and kill_swith == 0:
+        if is_manage_new_trades and kill_switch == 0:
             status_dict["message"] = "Managing new trades..."
             save_status(status_dict)
             kill_switch = manage_new_trades(kill_switch)

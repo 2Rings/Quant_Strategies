@@ -8,8 +8,8 @@ from pybit import HTTP
 
 # CONFIG VARIABLES
 mode = "test"
-ticker_1 = "MATICUSDT"
-ticker_2 = "STXUSDT"
+ticker_1 = "BTCUSDT"#"MATICUSDT"
+ticker_2 = "ETHUSDT"
 signal_positive_ticker = ticker_2
 signal_negative_ticker = ticker_1
 rounding_ticker_1 = 4
