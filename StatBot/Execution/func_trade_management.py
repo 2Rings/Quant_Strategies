@@ -68,8 +68,21 @@ def manage_new_order(kill_switch):
         # Get the minimum amount of liquidity as the standard of capital we inject
         initial_capital_injection_usdt = min(initial_fill_target_long_usdt, initial_fill_target_short_usdt)
         
-        
-        
+        # Ensure initial capital doesn not exceed limits set in configuration
+        if limit_order_basis:
+            if initial_capital_injection_usdt > capital_long:
+                initial_capital_usdt = capital_long
+            else:
+                #If put market order, it migth eat up the order book if initial_capital_usdt is much smaller than capital_long
+                
+                initial_capital_usdt = initial_capital_injection_usdt
+        else:
+            initial_capital_usdt = capital_long
+            
+        # Set remaining capital
+        remaining_capital_long = capital_long
+        remaining_capital_short = capital_short
+                
 
         print(avg_liquidity_ticker_p, avg_liquidity_ticker_n)
 
