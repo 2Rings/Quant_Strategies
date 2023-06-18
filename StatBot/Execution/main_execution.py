@@ -19,4 +19,10 @@ if __name__ == "__main__":
     print("StatBot initiated...")
 
     # Initialize Variable
-    status_dict = {"message"}
+    status_dict = {"message": "Starting..."}
+    order_long = {}
+    order_short = {}
+    signal_sign_positive = False
+    kill_swith = 0
+
+    
