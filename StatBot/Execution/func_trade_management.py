@@ -59,30 +59,53 @@ def manage_new_order(kill_switch):
             avg_liquidity_short = avg_liquidity_ticker_p
             last_price_long = last_price_n
             last_price_short = last_price_p
-            
-        #Fill Target
+
+        # Fill Target
         capital_long = tradeable_capital_usdt * 0.5
         capital_short = tradeable_capital_usdt * 0.5
         initial_fill_target_long_usdt = avg_liquidity_long * last_price_long
         initial_fill_target_short_usdt = avg_liquidity_short * last_price_short
         # Get the minimum amount of liquidity as the standard of capital we inject
-        initial_capital_injection_usdt = min(initial_fill_target_long_usdt, initial_fill_target_short_usdt)
-        
+        initial_capital_injection_usdt = min(
+            initial_fill_target_long_usdt, initial_fill_target_short_usdt
+        )
+
         # Ensure initial capital doesn not exceed limits set in configuration
         if limit_order_basis:
             if initial_capital_injection_usdt > capital_long:
                 initial_capital_usdt = capital_long
             else:
-                #If put market order, it migth eat up the order book if initial_capital_usdt is much smaller than capital_long
-                
+                # If put market order, it migth eat up the order book if initial_capital_usdt is much smaller than capital_long
+
                 initial_capital_usdt = initial_capital_injection_usdt
         else:
             initial_capital_usdt = capital_long
-            
+
         # Set remaining capital
         remaining_capital_long = capital_long
         remaining_capital_short = capital_short
-                
+
+        # Trade unitl filled or signal is false
+        order_status_long = ""
+        order_status_short = ""
+        counts_long = 0
+        counts_short = 0
+        while kill_switch == 0:
+            # Place order - long
+            if counts_long == 0:
+                order_long_id = initialize_order_execution(
+                    long_ticker, "Long", initial_capital_usdt
+                )
+                counts_long = 1 if order_long_id else 0
+                remaining_capital_long = remaining_capital_long - initial_capital_usdt
+
+            # Place order - short
+            if counts_short == 0:
+                order_short_id = initialize_order_execution(
+                    short_ticker, "Short", initial_capital_usdt
+                )
+                counts_short = 1 if order_short_id else 0
+                remaining_capital_short = remaining_capital_short - initial_capital_usdt
 
         print(avg_liquidity_ticker_p, avg_liquidity_ticker_n)
 
