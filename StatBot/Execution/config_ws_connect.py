@@ -4,14 +4,9 @@ from pybit import WebSocket
 
 # Public ws socket
 
-subs_public = [
-    f"orderBookL2_25.{ticker_1}",
-    f"orderBookL2_25.{ticker_2}"
-]
+subs_public = [f"orderBookL2_25.{ticker_1}", f"orderBookL2_25.{ticker_2}"]
 
-ws_public = WebSocket(ws_public_url,
-               subscriptions= subs_public
-               )
+ws_public = WebSocket(ws_public_url, subscriptions=subs_public)
 
 # while True:
 #     data = ws_public.fetch(subs_public[0])

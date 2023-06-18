@@ -1,9 +1,13 @@
-from config_execution_api import signal_negative_ticker, signal_positive_ticker, session_private
+from config_execution_api import (
+    signal_negative_ticker,
+    signal_positive_ticker,
+    session_private,
+)
 
 # Get position information
 
+
 def get_position_info(ticker):
-    
     size = 0
     side = ""
 
@@ -21,28 +25,30 @@ def get_position_info(ticker):
                     size = position["result"][1]["size"]
                     side = "Sell"
 
-    #Return output
+    # Return output
     return size, side
+
 
 # Place market close order
 def place_market_close_order(ticker, side, size):
-    #Close position
+    # Close position
 
     session_private.place_active_order(
-            symbol=ticker,
-            side=side,
-            order_type="Market",
-            qty=size,
-            time_in_force="GoodTillCancel",
-            reduce_only=True,
-            close_on_trigger=False
+        symbol=ticker,
+        side=side,
+        order_type="Market",
+        qty=size,
+        time_in_force="GoodTillCancel",
+        reduce_only=True,
+        close_on_trigger=False,
     )
 
     return
 
+
 # Close all positions for both tickers
 def close_all_positions(kill_switch):
-    # Cancel all active orders 
+    # Cancel all active orders
 
     session_private.cancel_all_active_orders(symbol=signal_positive_ticker)
     session_private.cancel_all_active_orders(symbol=signal_negative_ticker)
@@ -52,20 +58,12 @@ def close_all_positions(kill_switch):
     side_2, size_2 = get_position_info(signal_negative_ticker)
 
     if size_1 > 0:
-        place_market_close_order(signal_positive_ticker, side_2, size_1) # use Side 2
-    
+        place_market_close_order(signal_positive_ticker, side_2, size_1)  # use Side 2
+
     if size_2 > 0:
-        place_market_close_order(signal_negative_ticker, side_1, size_2) # use side 1
+        place_market_close_order(signal_negative_ticker, side_1, size_2)  # use side 1
 
     # Output results
     kill_switch = 0
 
     return kill_switch
-
-
-    
-
-    
-
-
-

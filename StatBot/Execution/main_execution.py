@@ -6,8 +6,10 @@ from func_position_calls import open_position_confirmation, active_position_conf
 from func_save_status import save_status
 from func_trade_management import manage_new_trades
 import time
+
 # Remove panda Future warnings
 import warnings
+
 warnings.simplefilter(action="ignore", category=FutureWarning)
 
 """
@@ -42,13 +44,18 @@ if __name__ == "__main__":
         time.sleep(3)
 
         # Check if open trades already exist
-        is_p_ticker_open  = open_position_confirmation(signal_positive_ticker)
-        is_n_ticker_open  = open_position_confirmation(signal_negative_ticker)
+        is_p_ticker_open = open_position_confirmation(signal_positive_ticker)
+        is_n_ticker_open = open_position_confirmation(signal_negative_ticker)
 
         is_p_ticker_active = active_position_confirmation(signal_positive_ticker)
         is_n_ticker_active = active_position_confirmation(signal_negative_ticker)
 
-        checks_all = [is_p_ticker_open, is_n_ticker_open, is_p_ticker_active, is_n_ticker_active]
+        checks_all = [
+            is_p_ticker_open,
+            is_n_ticker_open,
+            is_p_ticker_active,
+            is_n_ticker_active,
+        ]
 
         is_manage_new_trades = not any(checks_all)
 
@@ -57,13 +64,13 @@ if __name__ == "__main__":
         status_dict["checks"] = checks_all
         save_status(status_dict)
 
-        #Check for signal and place new trades
+        # Check for signal and place new trades
         if is_manage_new_trades and kill_swith == 0:
             status_dict["message"] = "Managing new trades..."
             save_status(status_dict)
             kill_switch = manage_new_trades(kill_switch)
-        
-        # Close all active orders and positions 
+
+        # Close all active orders and positions
         if kill_switch == 2:
             status_dict["message"] = "Closing existing trades ..."
             save_status(status_dict)

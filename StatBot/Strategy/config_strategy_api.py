@@ -3,7 +3,7 @@
     https://bybit-exchange.github.io/docs/v5/intro
 """
 
-#API Imports
+# API Imports
 # from pybit import HTTP
 # from pybit import webSocket
 
@@ -14,23 +14,25 @@ timeframe = 60
 kline_limit = 200
 z_score_window = 21
 
-#LIVE API
+# LIVE API
 api_key_mainnet = ""
 api_secret_mainnet = ""
 
-#TEST API
+# TEST API
 api_key_testnet = ""
 api_secret_testnet = ""
 
-#SELECTED API
+# SELECTED API
 
-api_key = api_key_testnet if mode ==  "test" else api_key_mainnet
-api_secret = api_secret_testnet if mode ==  "test" else api_secret_mainnet
+api_key = api_key_testnet if mode == "test" else api_key_mainnet
+api_secret = api_secret_testnet if mode == "test" else api_secret_mainnet
 
 
-api_url = "https://api-testnet.bybit.com" if mode == "test" else "hettps://api.bybit.com"
+api_url = (
+    "https://api-testnet.bybit.com" if mode == "test" else "hettps://api.bybit.com"
+)
 
-#SESSION Activation
+# SESSION Activation
 
 # session = HTTP(api_url)
 
@@ -40,8 +42,3 @@ session = {}
 # ws = WebSocket(
 
 # )
-
-
-
-
-

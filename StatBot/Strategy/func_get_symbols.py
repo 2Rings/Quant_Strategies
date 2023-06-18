@@ -1,5 +1,6 @@
 from config_strategy_api import session
 
+
 # Get Symbols that are tradeable
 def get_tradeable_symbols():
     sym_list = []
@@ -9,7 +10,11 @@ def get_tradeable_symbols():
             symbols = symbols["result"]
 
     for symbol in symbols:
-        if symbol["quote_currency"] == "USDT" and float(symbol["maker_fee"]) < 0 and symbol["status"] == "Trading":
+        if (
+            symbol["quote_currency"] == "USDT"
+            and float(symbol["maker_fee"]) < 0
+            and symbol["status"] == "Trading"
+        ):
             sym_list.append(symbol)
 
     # Return output
