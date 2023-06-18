@@ -21,16 +21,17 @@ time_start_seconds = int(time_start_date.timestamp())
 
 # Get historical prices (klines)
 
+
 def get_price_klines(symbol):
     # Get Prices
     prices = session.query_mark_price_kline(
-        symbol = symbol,
-        interval = timeframe,
-        limit = kline_limit,
-        from_time = time_start_seconds
+        symbol=symbol,
+        interval=timeframe,
+        limit=kline_limit,
+        from_time=time_start_seconds,
     )
 
-    #Manage API calls
+    # Manage API calls
 
     time.sleep(0.1)
 
@@ -39,4 +40,3 @@ def get_price_klines(symbol):
 
     # print(prices)
     return prices["result"]
-
