@@ -1,11 +1,10 @@
-import math
 
-from statsmodels.tsa.stattools import coint
 from config_strategy_api import z_score_window
-import statsmodels.api as sm
+from statsmodels.tsa.stattools import coint
+import math
 import numpy as np
 import pandas as pd
-
+import statsmodels.api as sm
 #Zero Crossing
 def calc_zero_cross(spread):
     zero_crossings = len(np.where(np.diff(np.sign(spread)))[0])

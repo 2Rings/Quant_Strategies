@@ -1,8 +1,8 @@
+
 from config_ws_connect import ws_public, subs_public
 from func_calculation import get_trade_details
 from func_price_calls import get_latest_klines
 from func_stats import calculate_metrics
-
 # Get the latest zscore
 def get_latest_zscore():
     # Get Latest asset orderbook prices and add dummy price for latest

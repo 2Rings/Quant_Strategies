@@ -1,7 +1,7 @@
-from config_execution_api import stop_loss_fail_safe, ticker_1, rounding_ticker_1
-from config_execution_api import rounding_ticker_2, quantity_rounding_ticker_1, quantity_rounding_ticker_2
-import math
 
+from config_execution_api import rounding_ticker_2, quantity_rounding_ticker_1, quantity_rounding_ticker_2
+from config_execution_api import stop_loss_fail_safe, ticker_1, rounding_ticker_1
+import math
 
 
 # PUts all close prices in a list
