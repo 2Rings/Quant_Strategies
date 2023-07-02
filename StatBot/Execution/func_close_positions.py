@@ -8,6 +8,14 @@ from config_execution_api import (
 
 
 def get_position_info(ticker):
+    """_summary_
+
+    Args:
+        ticker (_type_): _description_
+
+    Returns:
+        _type_: _description_
+    """
     size = 0
     side = ""
 

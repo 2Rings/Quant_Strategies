@@ -14,6 +14,18 @@ def set_leverage(ticker):
 
 
 def place_order(ticker, price, quantity, direction, stop_loss):
+    """_summary_
+
+    Args:
+        ticker (_type_): _description_
+        price (_type_): _description_
+        quantity (_type_): _description_
+        direction (_type_): _description_
+        stop_loss (_type_): _description_
+
+    Returns:
+        _type_: _description_
+    """
     side = "Buy" if direction == "Long" else "Sell"
     reduce_only = False
 

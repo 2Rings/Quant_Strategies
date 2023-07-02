@@ -6,6 +6,7 @@ from func_stats import calculate_metrics
 
 # Get the latest zscore
 def get_latest_zscore():
+
     # Get Latest asset orderbook prices and add dummy price for latest
 
     orderbook_1 = ws_public.fetch(subs_public[0])
