@@ -1,0 +1,1 @@
+# Dashboard to visulize technical analysis data
