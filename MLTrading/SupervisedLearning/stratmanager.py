@@ -76,12 +76,17 @@ class StrategyManager():
         return sharpe
 
     # Replace Dataframe
-    def change_df(self, new_df, drop_cols=[]):
+    def change_df(self, new_df, drop_cols = None):
+        if drop_cols is None:
+            drop_cols = []
         new_df = new_df.drop(columns=drop_cols)
         self.df = new_df
 
     # Moving average crossover strategy
-    def backtest_ma_crossover(self, period_1, period_2, direction, drop_cols=[]):
+    def backtest_ma_crossover(self, period_1, period_2, direction, drop_cols = None):
+        
+        if drop_cols is None:
+            drop_cols = []
         
         # Set df
         df = self.df
@@ -108,6 +113,8 @@ class StrategyManager():
         # Get values for output
         bench_rets = df["Bench_C_Rets"].values.astype(float)
         strat_rets = df["Strat_C_Rets"].values.astype(float)
+        
+        print("strat_rets", strat_rets[-1])
         print("Sense check: ", round(df["Close"].values[-1] / df["Close"].values[0] - 1, 3), round(bench_rets[-1], 3))
         
         # Remove irrelevant features
